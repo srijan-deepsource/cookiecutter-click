@@ -4,13 +4,13 @@ PROJ_SLUG = {{cookiecutter.package_name}}
 CLI_NAME = {{cookiecutter.cli_name}}
 PY_VERSION = {{cookiecutter.python_version}}
 LINTER = {{cookiecutter.linter}}
-{% if cookiecutter.virtualenv == 'python3' %}
+{% if cookiecutter.virtualenv == 'venv' %}
 SHELL = bash
 {% endif %}
 
 
 build:
-	pip install --editable .
+	python$(PY_VERSION) install --editable .
 
 run:
 	$(CLI_NAME) run
@@ -19,7 +19,7 @@ submit:
 	$(CLI_NAME) submit
 
 freeze:
-	pip freeze > requirements.txt
+	python$(PY_VERSION) -m pip freeze > requirements.txt
 
 lint:
 	$(LINTER) $(PROJ_SLUG)
@@ -44,7 +44,7 @@ answers:
 	xdg-open docs/build/html/index.html
 
 package: clean docs
-	python setup.py sdist
+	python$(PY_VERSION) setup.py sdist
 
 publish: package
 	twine upload dist/*
@@ -57,15 +57,16 @@ clean :
 
 venv :
 {% if cookiecutter.virtualenv == 'virtualenv' %}
-	virtualenv --python python$(PY_VERSION) venv
+	python$(PY_VERSION) -m virtualenv --python python$(PY_VERSION) venv
 {% endif %}
 {% if cookiecutter.virtualenv == 'python3' %}
-	python3 -m venv venv
-	source venv/bin/activate && pip install pip --upgrade --index-url=https://pypi.org/simple
+	python$(PY_VERSION) -m venv venv
+	source venv/bin/activate
+	pip install --upgrade pip --index-url=https://pypi.org/simple
 {% endif %}
 
 install:
-	pip install -r requirements.txt
+	python$(PY_VERSION) -m pip install -r requirements.txt
 
 licenses:
 	pip-licenses --with-url --format=rst \
