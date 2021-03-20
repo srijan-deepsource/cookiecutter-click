@@ -19,7 +19,9 @@ It can be used as a handy facility for running the task from a command line.
 .. moduleauthor:: {{cookiecutter.author_name}} <{{cookiecutter.author_email}}>
 """
 import logging
+
 import click
+
 from .__init__ import __version__
 
 LOGGING_LEVELS = {
