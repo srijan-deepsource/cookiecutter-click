@@ -47,7 +47,8 @@ def check_paths(paths):
         for line in open(path, "rb"):
             match = RE_OBJ.search(str(line))
             msg = "cookiecutter variable not replaced in {}"
-            assert match is None, msg.format(path)
+            if match is not None:
+                raise AssertionError(msg.format(path))
 
 
 def test_project_generation(cookies, context):
@@ -55,12 +56,17 @@ def test_project_generation(cookies, context):
     Test that project is generated and fully rendered.
     """
     result = cookies.bake(context)
-    assert result.exit_code == 0
-    assert result.exception is None
-    assert result.project.basename == context["project_name"]
-    assert result.project.isdir()
+    if result.exit_code != 0:
+        raise AssertionError
+    if result.exception is not None:
+        raise AssertionError
+    if result.project.basename != context["project_name"]:
+        raise AssertionError
+    if not result.project.isdir():
+        raise AssertionError
     paths = build_files_list(str(result.project))
-    assert paths
+    if not paths:
+        raise AssertionError
     check_paths(paths)
 
 
