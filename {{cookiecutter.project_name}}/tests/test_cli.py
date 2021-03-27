@@ -10,10 +10,9 @@ module.
 """
 # fmt: off
 import {{cookiecutter.package_name}}.cli as cli
-from {{cookiecutter.package_name}} import __version__
 # fmt: on
 from click.testing import CliRunner, Result
-
+from {{cookiecutter.package_name}} import __version__
 
 # To learn more about testing Click applications, visit the link below.
 # http://click.pocoo.org/5/testing/
