@@ -8,4 +8,4 @@
 .. moduleauthor:: {{cookiecutter.author_name}} <{{cookiecutter.author_email}}>
 """
 
-from .version import __version__, __release__  # noqa
+from .version import __release__, __version__  # noqa
