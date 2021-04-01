@@ -10,10 +10,11 @@ This file is used to create the package we'll publish to PyPI.
 
 import importlib.util
 import os
-from pathlib import Path
-from setuptools import setup, find_packages
 from codecs import open  # Use a consistent encoding.
 from os import path
+from pathlib import Path
+
+from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
@@ -24,9 +25,9 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 # Get the base version from the library.  (We'll find it in the `version.py`
 # file in the src directory, but we'll bypass actually loading up the library.)
 vspec = importlib.util.spec_from_file_location(
-  "version",
-  str(Path(__file__).resolve().parent /
-      '{{cookiecutter.package_name}}'/"version.py")
+    "version",
+    str(Path(__file__).resolve().parent /
+        '{{cookiecutter.package_name}}' / "version.py")
 )
 vmod = importlib.util.module_from_spec(vspec)
 vspec.loader.exec_module(vmod)
@@ -56,11 +57,11 @@ setup(
     {{cookiecutter.cli_name}}={{cookiecutter.package_name}}.cli:cli
     """,
     python_requires=">={{cookiecutter.project_version}}",
-    license={% if cookiecutter.license != "None" %}'{{cookiecutter.license}}'{% else %}None{% endif %},  # noqa
+    license={ % if cookiecutter.license != "None" % }'{{cookiecutter.license}}'{ % else % }None{ % endif % },  # noqa
     author='{{cookiecutter.author_name}}',
     author_email='{{cookiecutter.author_email}}',
     # Use the URL to the github repo.
-    url= 'https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.package_name}}',
+    url='https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.package_name}}',
     download_url=(
         f'https://github.com/{{cookiecutter.github_user}}/'
         f'{{cookiecutter.package_name}}/archive/{version}.tar.gz'
@@ -81,11 +82,11 @@ setup(
       'Topic :: Software Development :: Libraries',
 
       # Pick your license.  (It should match "license" above.)
-      {% if cookiecutter.license != 'None' %}  # noqa
+      { % if cookiecutter.license != 'None' % }  # noqa
       '''License :: OSI Approved :: {{cookiecutter.license}} License''',
-      {% else %}
+      { % else % }
       '''License :: OSI Approved :: <Your Preferred License>''',  # noqa
-      {%endif%}  # noqa
+      { % endif%}  # noqa
       # Specify the Python versions you support here. In particular, ensure
       # that you indicate whether you support Python 2, Python 3 or both.
       'Programming Language :: Python :: {{cookiecutter.python_version}}',
