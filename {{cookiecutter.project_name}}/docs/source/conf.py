@@ -132,13 +132,13 @@ html_theme_options = {
     "github_repo": "{{cookiecutter.project_name}}",
 }
 # fmt: off
-{% endif %}  # noqa
-{% if cookiecutter.sphinx_theme == 'readthedocs' %}  # noqa
+{ % endif % }  # noqa
+{ % if cookiecutter.sphinx_theme == 'readthedocs' % }  # noqa
 # fmt: on
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 # fmt: off
-{% endif %}  # noqa
+{ % endif % }  # noqa
 # fmt: on
 
 # Add any paths that contain custom static files (such as style sheets) here,
